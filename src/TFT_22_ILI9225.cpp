@@ -994,7 +994,7 @@ const uint8_t *bitmap, int16_t w, int16_t h, uint16_t color) {
 //High speed color bitmap
 void TFT_22_ILI9225::drawBitmap(uint16_t x, uint16_t y, 
 const uint16_t** bitmap, int16_t w, int16_t h) {
-    _setWindow(x, y, w-1, h-1);
+    _setWindow(x, y, x+w, y+h);
     startWrite();
     SPI_DC_HIGH();
     SPI_CS_LOW();
@@ -1012,7 +1012,7 @@ const uint16_t** bitmap, int16_t w, int16_t h) {
 //High speed color bitmap
 void TFT_22_ILI9225::drawBitmap(uint16_t x, uint16_t y, 
 uint16_t** bitmap, int16_t w, int16_t h) {
-    _setWindow(x, y, w-1, h-1);
+    _setWindow(x, y, x+w, y+h);
     startWrite();
     SPI_DC_HIGH();
     SPI_CS_LOW();

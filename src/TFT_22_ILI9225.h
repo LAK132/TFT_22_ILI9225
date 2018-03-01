@@ -340,6 +340,15 @@ class TFT_22_ILI9225 {
 
         void drawXBitmap(int16_t x, int16_t y, const uint8_t *bitmap, int16_t w, int16_t h, uint16_t color);
         void drawXBitmap(int16_t x, int16_t y, const uint8_t *bitmap, int16_t w, int16_t h, uint16_t color, uint16_t bg);
+        
+        /// Draw bitmap
+        /// @param    x point coordinate, x-axis
+        /// @param    y point coordinate, y-axis
+        /// @param    2D 16bit color bitmap 
+        /// @param    w width
+        /// @param    h height
+        void drawBitmap(uint16_t x, uint16_t y, const uint16_t** bitmap, int16_t w, int16_t h);
+        void drawBitmap(uint16_t x, uint16_t y, uint16_t** bitmap, int16_t w, int16_t h);
 
         /// Set current GFX font
         /// @param    f GFX font name defined in include file
@@ -370,8 +379,6 @@ class TFT_22_ILI9225 {
 
 
     private:
-
-        void _spiWrite(uint8_t v);
         void _spiWriteCommand(uint8_t c);
         void _spiWriteData(uint8_t d);
 
@@ -430,10 +437,14 @@ class TFT_22_ILI9225 {
         SPIClass _spi;
 #endif
 
-    protected:
+    public:
 
+        void _spiWrite(uint8_t v);
         void startWrite(void);
+        void startWrite(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1);
         void endWrite(void);
+
+    protected:
 
         void getGFXCharExtent(uint8_t c, int16_t *gw, int16_t *gh, int16_t *xa);
         

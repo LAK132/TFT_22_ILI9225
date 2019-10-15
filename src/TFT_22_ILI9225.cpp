@@ -81,7 +81,7 @@
 // Hardware SPI Macros
 #ifndef ESP32
     #ifdef SPI_CHANNEL
-        extern SPIClass SPI_CHANNEL; 
+        extern SPIClass SPI_CHANNEL;
         #define SPI_OBJECT  SPI_CHANNEL
     #else
         #define SPI_OBJECT  SPI
@@ -161,7 +161,7 @@
 #elif defined (__AVR__) || defined(TEENSYDUINO)
     #define SPI_DEFAULT_FREQ         8000000
 #elif defined(ESP8266) || defined(ESP32)
-    #define SPI_DEFAULT_FREQ         40000000
+    #define SPI_DEFAULT_FREQ         20000000
 #elif defined(RASPI)
     #define SPI_DEFAULT_FREQ         80000000
 #elif defined(ARDUINO_ARCH_STM32F1)
@@ -299,7 +299,7 @@ void TFT_22_ILI9225::begin()
     // Initialization Code
     if (_rst > 0) {
         digitalWrite(_rst, HIGH); // Pull the reset pin high to release the ILI9225C from the reset status
-        delay(1); 
+        delay(1);
         digitalWrite(_rst, LOW); // Pull the reset pin low to reset ILI9225
         delay(10);
         digitalWrite(_rst, HIGH); // Pull the reset pin high to release the ILI9225C from the reset status
@@ -316,7 +316,7 @@ void TFT_22_ILI9225::begin()
     _writeRegister(ILI9225_POWER_CTRL4, 0x0000); // Set GVDD
     _writeRegister(ILI9225_POWER_CTRL5, 0x0000); // Set VCOMH/VCOML voltage
     endWrite();
-    delay(40); 
+    delay(40);
 
     // Power-on sequence
     startWrite();
@@ -346,32 +346,32 @@ void TFT_22_ILI9225::begin()
     _writeRegister(ILI9225_RAM_ADDR_SET2, 0x0000); // RAM Address
 
     /* Set GRAM area */
-    _writeRegister(ILI9225_GATE_SCAN_CTRL, 0x0000); 
-    _writeRegister(ILI9225_VERTICAL_SCROLL_CTRL1, 0x00DB); 
-    _writeRegister(ILI9225_VERTICAL_SCROLL_CTRL2, 0x0000); 
-    _writeRegister(ILI9225_VERTICAL_SCROLL_CTRL3, 0x0000); 
-    _writeRegister(ILI9225_PARTIAL_DRIVING_POS1, 0x00DB); 
-    _writeRegister(ILI9225_PARTIAL_DRIVING_POS2, 0x0000); 
-    _writeRegister(ILI9225_HORIZONTAL_WINDOW_ADDR1, 0x00AF); 
-    _writeRegister(ILI9225_HORIZONTAL_WINDOW_ADDR2, 0x0000); 
-    _writeRegister(ILI9225_VERTICAL_WINDOW_ADDR1, 0x00DB); 
-    _writeRegister(ILI9225_VERTICAL_WINDOW_ADDR2, 0x0000); 
+    _writeRegister(ILI9225_GATE_SCAN_CTRL, 0x0000);
+    _writeRegister(ILI9225_VERTICAL_SCROLL_CTRL1, 0x00DB);
+    _writeRegister(ILI9225_VERTICAL_SCROLL_CTRL2, 0x0000);
+    _writeRegister(ILI9225_VERTICAL_SCROLL_CTRL3, 0x0000);
+    _writeRegister(ILI9225_PARTIAL_DRIVING_POS1, 0x00DB);
+    _writeRegister(ILI9225_PARTIAL_DRIVING_POS2, 0x0000);
+    _writeRegister(ILI9225_HORIZONTAL_WINDOW_ADDR1, 0x00AF);
+    _writeRegister(ILI9225_HORIZONTAL_WINDOW_ADDR2, 0x0000);
+    _writeRegister(ILI9225_VERTICAL_WINDOW_ADDR1, 0x00DB);
+    _writeRegister(ILI9225_VERTICAL_WINDOW_ADDR2, 0x0000);
 
     /* Set GAMMA curve */
-    _writeRegister(ILI9225_GAMMA_CTRL1, 0x0000); 
-    _writeRegister(ILI9225_GAMMA_CTRL2, 0x0808); 
-    _writeRegister(ILI9225_GAMMA_CTRL3, 0x080A); 
-    _writeRegister(ILI9225_GAMMA_CTRL4, 0x000A); 
-    _writeRegister(ILI9225_GAMMA_CTRL5, 0x0A08); 
-    _writeRegister(ILI9225_GAMMA_CTRL6, 0x0808); 
-    _writeRegister(ILI9225_GAMMA_CTRL7, 0x0000); 
-    _writeRegister(ILI9225_GAMMA_CTRL8, 0x0A00); 
-    _writeRegister(ILI9225_GAMMA_CTRL9, 0x0710); 
-    _writeRegister(ILI9225_GAMMA_CTRL10, 0x0710); 
+    _writeRegister(ILI9225_GAMMA_CTRL1, 0x0000);
+    _writeRegister(ILI9225_GAMMA_CTRL2, 0x0808);
+    _writeRegister(ILI9225_GAMMA_CTRL3, 0x080A);
+    _writeRegister(ILI9225_GAMMA_CTRL4, 0x000A);
+    _writeRegister(ILI9225_GAMMA_CTRL5, 0x0A08);
+    _writeRegister(ILI9225_GAMMA_CTRL6, 0x0808);
+    _writeRegister(ILI9225_GAMMA_CTRL7, 0x0000);
+    _writeRegister(ILI9225_GAMMA_CTRL8, 0x0A00);
+    _writeRegister(ILI9225_GAMMA_CTRL9, 0x0710);
+    _writeRegister(ILI9225_GAMMA_CTRL10, 0x0710);
 
-    _writeRegister(ILI9225_DISP_CTRL1, 0x0012); 
+    _writeRegister(ILI9225_DISP_CTRL1, 0x0012);
     endWrite();
-    delay(50); 
+    delay(50);
     startWrite();
     _writeRegister(ILI9225_DISP_CTRL1, 0x1017);
     endWrite();
@@ -462,7 +462,7 @@ void TFT_22_ILI9225::_setWindow(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t 
 
 void TFT_22_ILI9225::_setWindow(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, autoIncMode_t mode) {
     DB_PRINT( "setWindows( x0=%d, y0=%d, x1=%d, y1=%d, mode=%d", x0,y0,x1,y1,mode );
-    
+
     // clip to TFT-Dimensions
     x0 = min( x0, (uint16_t) (_maxX-1) );
     x1 = min( x1, (uint16_t) (_maxX-1) );
@@ -473,7 +473,7 @@ void TFT_22_ILI9225::_setWindow(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t 
 
     if (x1<x0) _swap(x0, x1);
     if (y1<y0) _swap(y0, y1);
-    
+
     startWrite();
     // autoincrement mode
     if ( _orientation > 0 ) mode = modeTab[_orientation-1][mode];
@@ -515,10 +515,10 @@ void TFT_22_ILI9225::_setWindow(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t 
 
 
 void TFT_22_ILI9225::_resetWindow() {
-    _writeRegister(ILI9225_HORIZONTAL_WINDOW_ADDR1, 0x00AF); 
-    _writeRegister(ILI9225_HORIZONTAL_WINDOW_ADDR2, 0x0000); 
-    _writeRegister(ILI9225_VERTICAL_WINDOW_ADDR1, 0x00DB); 
-    _writeRegister(ILI9225_VERTICAL_WINDOW_ADDR2, 0x0000); 
+    _writeRegister(ILI9225_HORIZONTAL_WINDOW_ADDR1, 0x00AF);
+    _writeRegister(ILI9225_HORIZONTAL_WINDOW_ADDR2, 0x0000);
+    _writeRegister(ILI9225_VERTICAL_WINDOW_ADDR1, 0x00DB);
+    _writeRegister(ILI9225_VERTICAL_WINDOW_ADDR2, 0x0000);
 
 }
 
@@ -755,7 +755,7 @@ void TFT_22_ILI9225::drawPixel(uint16_t x1, uint16_t y1, uint16_t color) {
     _writeRegister(ILI9225_RAM_ADDR_SET1,x1);
     _writeRegister(ILI9225_RAM_ADDR_SET2,y1);
     _writeRegister(ILI9225_GRAM_DATA_REG,color);
-    
+
     endWrite();
 }
 
@@ -799,7 +799,7 @@ void TFT_22_ILI9225::_writeCommand16(uint16_t command) {
     if ( _clk < 0 ) {
 # ifdef HSPI_WRITE16
         HSPI_WRITE16(command);
-#else 
+#else
         HSPI_WRITE(command >> 8);
         HSPI_WRITE(0x00ff & command);
 #endif
@@ -825,7 +825,7 @@ void TFT_22_ILI9225::_writeData16(uint16_t data) {
     if (_clk < 0) {
 # ifdef HSPI_WRITE16
         HSPI_WRITE16(data);
-#else 
+#else
         HSPI_WRITE(data >> 8);
         HSPI_WRITE(0x00ff & data);
 #endif
@@ -1021,10 +1021,10 @@ uint16_t TFT_22_ILI9225::drawChar(uint16_t x, uint16_t y, uint16_t ch, uint16_t 
     charOffset++;  // increment pointer to first character data byte
 
     startWrite();
-    
+
     // use autoincrement/decrement feature, if character fits completely on screen
     fastMode = ( (x+charWidth+1) < _maxX && (y+cfont.height-1) < _maxY );
-    
+
     if ( fastMode ) _setWindow( x,y,x+charWidth+1, y+cfont.height-1 );  // set character Window
 
     for (i = 0; i <= charWidth; i++) {  // each font "column" (+1 blank column for spacing)
@@ -1033,7 +1033,7 @@ uint16_t TFT_22_ILI9225::drawChar(uint16_t x, uint16_t y, uint16_t ch, uint16_t 
             if (i == charWidth) charData = (uint8_t)0x0; // Insert blank column
             else                charData = readFontByte(charOffset);
             charOffset++;
-            
+
             // Process every row in font character
             for (uint8_t k = 0; k < 8; k++) {
                 if (h >= cfont.height ) break;  // No need to process excess bits
@@ -1102,8 +1102,8 @@ void TFT_22_ILI9225::drawXBitmap(int16_t x, int16_t y, const uint8_t *bitmap, in
 void TFT_22_ILI9225::_drawBitmap(int16_t x, int16_t y, const uint8_t *bitmap, int16_t w, int16_t h, uint16_t color, uint16_t bg, bool transparent, bool progmem,bool Xbit) {
     bool noAutoInc = false;     // Flag set when transparent pixel was 'written'
     int16_t i, j, byteWidth = (w + 7) / 8;
-    int16_t wx0, wy0, wx1, wy1, wh, ww;  // Window-position and size
-    uint8_t byte, maskBit;
+    int16_t wx0, wy0, wx1, wy1, wh/*, ww*/;  // Window-position and size
+    uint8_t byte = 0, maskBit;
     maskBit = Xbit? 0x01:0x80;
     // adjust window hight/width to displaydimensions
     DB_PRINT( "DrawBitmap.. maxX=%d, maxY=%d", _maxX,_maxY );
@@ -1112,13 +1112,13 @@ void TFT_22_ILI9225::_drawBitmap(int16_t x, int16_t y, const uint8_t *bitmap, in
     wx1 = (x + w > _maxX ?_maxX : x + w ) - 1;
     wy1 = (y + h > _maxY ?_maxY : y + h ) - 1;
     wh  = wy1 - wy0 + 1;
-    ww  = wx1 - wx0 + 1;
+    // ww  = wx1 - wx0 + 1;
     _setWindow(wx0, wy0, wx1, wy1, L2R_TopDown);
     startWrite();
     for (j = y>=0?0:-y; j < (y>=0?0:-y)+wh; j++) {
         for (i = 0; i < w; i++ ) {
-            if (i & 7) { 
-                if ( Xbit ) byte >>=1; else byte <<= 1; 
+            if (i & 7) {
+                if ( Xbit ) byte >>=1; else byte <<= 1;
             }
             else {
                 if ( progmem ) byte   = pgm_read_byte(bitmap + j * byteWidth + i / 8);
@@ -1132,7 +1132,7 @@ void TFT_22_ILI9225::_drawBitmap(int16_t x, int16_t y, const uint8_t *bitmap, in
                         drawPixel(x + i, y + j, color);
                         noAutoInc = false;
                     }
-                    else  { 
+                    else  {
                         _writeData16(color);
                     }
                 }
